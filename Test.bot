@@ -1,0 +1,25 @@
+{
+    "name": "Test",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "http://127.0.0.1:5000/api/messages",
+            "id": "c1b7bb00-0ef9-11e9-a3dc-6f04f9efd000",
+            "name": "http://127.0.0.1:5000/api/messages"
+        },
+        {
+            "type": "endpoint",
+            "endpoint": "http://127.0.0.1:3000/api/messages",
+            "name": "GSS",
+            "id": "228",
+            "appPassword": ""
+        }
+    ],
+    "padlock": "",
+    "version": "2.0",
+    "path": "/Users/yixiang/Projects/Other/botframework-template-vs-for-mac/Test.bot",
+    "overrides": null
+}
