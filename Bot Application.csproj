@@ -127,7 +127,7 @@
     <Compile Include="Cards\PostCard.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Dialogs\AskNameDialog.cs" />
-    <Compile Include="Dialogs\CalculateBDialog.cs" />
+    <Compile Include="Dialogs\CalculateV2Dialog.cs" />
     <Compile Include="Dialogs\CalculateDialog.cs" />
     <Compile Include="Dialogs\CardsDemoDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />

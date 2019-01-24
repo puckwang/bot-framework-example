@@ -94,7 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EchoBotTests.cs" />
+    <Compile Include="BotTests.cs" />
     <Compile Include="DialogTestBase.cs" />
     <Compile Include="FiberTestBase.cs" />
     <Compile Include="MockConnectorFactory.cs" />

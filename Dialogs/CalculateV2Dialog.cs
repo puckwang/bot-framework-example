@@ -10,13 +10,13 @@ using Newtonsoft.Json;
 namespace BotTemplate.Dialogs
 {
     [Serializable]
-    public class CalculateBDialog : IDialog<object>
+    public class CalculateV2Dialog : IDialog<object>
     {
         public enum OperatorType
         {
             Add = 1,
             Sub,
-            Ｍul,
+            Mul,
             Div
         }
 
@@ -26,7 +26,7 @@ namespace BotTemplate.Dialogs
                 {OperatorType.Add, "+"},
                 {OperatorType.Div, "/"},
                 {OperatorType.Sub, "-"},
-                {OperatorType.Ｍul, "*"}
+                {OperatorType.Mul, "*"}
             };
 
         [Serializable]
@@ -34,10 +34,10 @@ namespace BotTemplate.Dialogs
         {
             [Describe("第一個數字")] [Prompt("請輸入{&}")] public int FirstNumber;
 
-            [Describe("第二個數字")] [Prompt("請輸入{&}")] public int SecondNumber;
-
             [Describe("運算子")] [Prompt("請輸入{&} {||}")]
             public OperatorType OperatorType;
+
+            [Describe("第二個數字")] [Prompt("請輸入{&}")] public int SecondNumber;
 
             public static IForm<Operator> BuildForm()
             {
@@ -73,7 +73,7 @@ namespace BotTemplate.Dialogs
                 case OperatorType.Sub:
                     sol = @operator.FirstNumber - @operator.SecondNumber;
                     break;
-                case OperatorType.Ｍul:
+                case OperatorType.Mul:
                     sol = @operator.FirstNumber * @operator.SecondNumber;
                     break;
                 case OperatorType.Div:
@@ -82,7 +82,7 @@ namespace BotTemplate.Dialogs
             }
 
             await context.PostAsync(
-                $"{@operator.FirstNumber} {OperatorTypeStringDictionary[@operator.OperatorType]} {@operator.SecondNumber} = {sol} ");
+                $"{@operator.FirstNumber} {OperatorTypeStringDictionary[@operator.OperatorType]} {@operator.SecondNumber} = {sol}");
             context.Done<object>(null);
         }
     }

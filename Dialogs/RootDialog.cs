@@ -32,7 +32,7 @@ namespace BotTemplate.Dialogs
                     break;
                 case "operation-v2": // 計算機範例- Form Flow 寫法
                 case "計算v2":
-                    await context.Forward(new CalculateBDialog(), AfterMessageReceivedAsync, text, CancellationToken.None);
+                    await context.Forward(new CalculateV2Dialog(), AfterMessageReceivedAsync, text, CancellationToken.None);
                     break;
                 case "cards": // Card 案例
                     await context.Forward(new CardsDemoDialog(), AfterMessageReceivedAsync, text, CancellationToken.None);

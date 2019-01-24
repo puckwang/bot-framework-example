@@ -16,7 +16,7 @@ namespace BotTemplate.Dialogs
         {
             Add,
             Sub,
-            Ｍul,
+            Mul,
             Div
         }
 
@@ -77,7 +77,7 @@ namespace BotTemplate.Dialogs
                     ans = _a - _b;
                     o = "-";
                     break;
-                case OperatorType.Ｍul:
+                case OperatorType.Mul:
                     ans = _a * _b;
                     o = "*";
                     break;
