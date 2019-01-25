@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
@@ -9,6 +10,15 @@ namespace BotTemplate.Dialogs
     [Serializable]
     public class RootDialog : IDialog<object>
     {
+        private enum MenuEnum
+        {
+            Hello = 1,
+            Operation,
+            OperationV2,
+            Cards,
+            Post
+        }
+
         public Task StartAsync(IDialogContext context)
         {
             context.Wait(MessageReceivedAsync);
@@ -40,6 +50,11 @@ namespace BotTemplate.Dialogs
                 case "post": // Call 外部 API
                     await context.Forward(new PostDialog(), AfterMessageReceivedAsync, text, CancellationToken.None);
                     break;
+                case "menu": // Menu
+                case "help":
+                case "?":
+                    await SendMenu(context);
+                    break;
                 default:
                     int length = (activity.Text ?? string.Empty).Length;
                     string name = context.UserData.GetValueOrDefault("Name", "");
@@ -51,6 +66,28 @@ namespace BotTemplate.Dialogs
         private async Task AfterMessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
             context.Wait(MessageReceivedAsync);
+        }
+
+        private async Task SendMenu(IDialogContext context)
+        {
+            var returnMessage = context.MakeMessage();
+            var heroCard = new HeroCard()
+            {
+                Title = "功能清單"
+            };
+
+            foreach (var item in Enum.GetValues(typeof(MenuEnum)))
+            {
+                heroCard.Buttons.Add(new CardAction()
+                {
+                    Title = item.ToString(),
+                    Value = item.ToString()
+                });
+            }
+
+            returnMessage.Attachments.Add(heroCard.ToAttachment());
+
+            await context.PostAsync(returnMessage);
         }
     }
 }
