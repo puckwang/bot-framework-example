@@ -136,7 +136,7 @@ namespace UnitTestProject1
                 toBot.From.Id = Guid.NewGuid().ToString();
 
                 // Act
-                toBot.Text = "operation-v2";
+                toBot.Text = "operationV2";
                 IMessageActivity toUser = await GetResponse(container, MakeRoot, toBot);
 
                 // Assert
@@ -226,6 +226,43 @@ namespace UnitTestProject1
                 Assert.AreEqual(1, heroCard3.Buttons.Count);
                 Assert.AreEqual("Open", heroCard3.Buttons[0].Title);
                 Assert.AreEqual(ActionTypes.OpenUrl, heroCard3.Buttons[0].Type);
+            }
+        }
+
+        [TestMethod]
+        public async Task TestHelp()
+        {
+            // Instantiate dialog to test
+            IDialog<object> rootDialog = new RootDialog();
+
+            // Create in-memory bot environment
+            Func<IDialog<object>> MakeRoot = () => rootDialog;
+            using (new FiberTestBase.ResolveMoqAssembly(rootDialog))
+            using (var container = Build(Options.MockConnectorFactory | Options.ScopedQueue, rootDialog))
+            {
+                // Create a message to send to bot
+                var toBot = DialogTestBase.MakeTestMessage();
+                toBot.From.Id = Guid.NewGuid().ToString();
+
+                // Act
+                toBot.Text = "help";
+                IMessageActivity toUser = await GetResponse(container, MakeRoot, toBot);
+
+                // Assert
+                HeroCard heroCard = (HeroCard) toUser.Attachments[0].Content;
+                Assert.AreEqual("功能清單", heroCard.Title);
+                Assert.AreEqual("Hello", heroCard.Buttons[0].Value);
+                Assert.AreEqual("Operation", heroCard.Buttons[1].Value);
+                Assert.AreEqual("OperationV2", heroCard.Buttons[2].Value);
+                Assert.AreEqual("Cards", heroCard.Buttons[3].Value);
+                Assert.AreEqual("Post", heroCard.Buttons[4].Value);
+
+                // Act
+                toBot.Text = "Hello";
+                toUser = await GetResponse(container, MakeRoot, toBot);
+
+                // Assert
+                Assert.AreEqual("請輸入你的名字", toUser.Text);
             }
         }
 

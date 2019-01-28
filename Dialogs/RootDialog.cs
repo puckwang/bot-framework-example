@@ -40,7 +40,7 @@ namespace BotTemplate.Dialogs
                 case "計算":
                     await context.Forward(new CalculateDialog(), AfterMessageReceivedAsync, text, CancellationToken.None);
                     break;
-                case "operation-v2": // 計算機範例- Form Flow 寫法
+                case "operationv2": // 計算機範例- Form Flow 寫法
                 case "計算v2":
                     await context.Forward(new CalculateV2Dialog(), AfterMessageReceivedAsync, text, CancellationToken.None);
                     break;
@@ -51,9 +51,11 @@ namespace BotTemplate.Dialogs
                     await context.Forward(new PostDialog(), AfterMessageReceivedAsync, text, CancellationToken.None);
                     break;
                 case "menu": // Menu
+                case "選單":
                 case "help":
                 case "?":
                     await SendMenu(context);
+                    context.Wait(MessageReceivedAsync);
                     break;
                 default:
                     int length = (activity.Text ?? string.Empty).Length;
